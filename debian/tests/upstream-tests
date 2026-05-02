@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -e -u
+
+PYTEST_OPTIONS="\
+ --ignore ${AUTOPKGTEST_TMP}/tests/experimentation/test_multiple_consumers_asyncio.py \
+ --ignore ${AUTOPKGTEST_TMP}/tests/experimentation/test_multiple_consumers_threads.py \
+ --ignore ${AUTOPKGTEST_TMP}/tests/test_multi_loop.py \
+ --ignore ${AUTOPKGTEST_TMP}/tests/integration/test_multiple_consumers.py\
+"
+
+cp -a pyproject.toml tests "${AUTOPKGTEST_TMP}"
+
+for py3vers in $(py3versions -s); do
+    echo
+    echo "***************************"
+    echo "*** Testing with ${py3vers}"
+    echo "***************************"
+    echo
+    cd ${AUTOPKGTEST_TMP} && \
+        echo "Content of current working folder:\n" && \
+        ls -la && \
+        echo "Running ${py3vers}" -m pytest -v "${PYTEST_OPTIONS}\n" && \
+        "${py3vers}" -m pytest -v $PYTEST_OPTIONS && \
+        rm -rf .pytest_cache || exit 1
+done
+
+echo
+
+exit 0

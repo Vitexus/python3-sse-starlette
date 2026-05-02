@@ -1,0 +1,4 @@
+# We exclude two files which are basically crap upstream didn't exclude from
+# shipping. There is the folder '.tox' which is a left over from the tox usage
+# and there is a symlink '.envrc' which points to somewhere outside.
+python-sse-starlette source: repackaged-source-not-advertised [debian/copyright]

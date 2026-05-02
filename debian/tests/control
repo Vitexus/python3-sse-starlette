@@ -1,0 +1,15 @@
+Tests:
+ upstream-tests
+Depends:
+ python3-all,
+ python3-anyio,
+ python3-asgi-lifespan,
+ python3-httpx,
+ python3-psutil,
+ python3-pytest,
+ python3-pytest-asyncio,
+ python3-pytest-cov,
+ python3-requests,
+ python3-starlette,
+ @,
+Restrictions: allow-stderr

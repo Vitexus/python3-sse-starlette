@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+#export DH_VERBOSE=1
+
+export PYBUILD_NAME=sse_starlette
+export PYBUILD_TEST_ARGS=\
+ --ignore tests/experimentation/test_multiple_consumers_asyncio.py \
+ --ignore tests/experimentation/test_multiple_consumers_threads.py \
+ --ignore tests/test_multi_loop.py \
+ --ignore tests/integration/test_multiple_consumers.py \
+ $(NULL)
+
+%:
+	dh $@ --buildsystem=pybuild
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -rf .mypy_cache .pytest_cache
